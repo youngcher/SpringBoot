@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ezen.demo.board.BoardMapper">
+
+	<select id="getList" resultType="com.ezen.demo.model.Board">
+		SELECT * FROM BBS
+	</select>
+
+	<insert id="writed" parameterType="com.ezen.demo.model.Board" >
+		INSERT into BBS (num, title, contents, author, wdate, pcode) 
+				VALUES(BBS_NUM.nextval, #{title}, #{contents}, #{author}, SYSDATE, #{pcode})
+	</insert>
+	
+	<select id="detail" resultType="com.ezen.demo.model.Board">
+		SELECT * FROM BBS WHERE num=#{num}
+	</select>
+
+	<update id="edited" parameterType="com.ezen.demo.model.Board">
+		UPDATE BBS SET title=#{title}, contents=#{contents} WHERE num=#{num} 
+	</update>
+	
+	<delete id="deleted" parameterType="com.ezen.demo.model.Board">
+		DELETE FROM BBS WHERE num=#{num}
+	</delete>
+	
+	<select id="serch" parameterType="String" resultType="com.ezen.demo.model.Board">
+		SELECT * FROM BBS WHERE 
+		<choose>
+			<when test='serchType.equalsIgnoreCase("title")'>
+				title LIKE '%'||#{serchKey}||'%'
+			</when>
+			<when test="serchType=='author'">
+				author LIKE '%'||#{serchKey}||'%'
+			</when>
+			<when test="serchType=='contents'">
+				contents LIKE '%'||#{serchKey}||'%'
+			</when>
+		</choose>
+		
+		<!-- #{serchType} LIKE '%'||#{serchKey}||'%' -->
+	</select>
+	
+</mapper>

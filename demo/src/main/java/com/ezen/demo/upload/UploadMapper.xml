@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ezen.demo.upload.UploadMapper">
+
+	<insert id="upload_upload" parameterType="com.ezen.demo.upload.Upload">
+		<selectKey keyProperty="num" resultType="integer" order="BEFORE">
+			SELECT UPLOAD.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO tb_upload (NUM, WRITER, UDATE, COMMENTS) VALUES (#{num}, #{writer}, SYSDATE, #{comments})
+	</insert>
+
+	<insert id="upload_attach" parameterType="map">
+		INSERT INTO tb_attach (FNAME, FPATH, PNUM, NUM) VALUES (#{fname}, #{fpath}, #{pnum}, ATTACH.nextval) 
+	</insert>
+
+	<select id="getList" resultType="map">
+		SELECT *
+		FROM tb_upload
+		INNER JOIN tb_attach
+		ON(tb_upload.num = tb_attach.pnum)
+	</select>
+
+	<select id="getFname" parameterType="Integer" resultType="String">
+		select fname from tb_attach where num=#{num}
+	</select>
+	
+	<select id="getUpload" parameterType="Integer" resultType="map">
+		select * from tb_upload left outer join tb_attach on(tb_upload.num = tb_attach.pnum) where tb_upload.num=#{num}
+	</select>
+
+	<delete id="removedatt" parameterType="Integer" >
+		DELETE from tb_attach WHERE pnum=#{num}
+	</delete>
+	
+	<delete id="removedup" parameterType="Integer" >
+		DELETE from tb_upload WHERE num=#{num}
+	</delete>
+
+</mapper>

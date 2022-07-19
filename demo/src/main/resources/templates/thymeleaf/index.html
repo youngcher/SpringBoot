@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Thymeleaf Test</title>
+</head>
+<body>
+<h3>Thymeleaf 테스트하기</h3>
+Item : <!-- div th:text="${item}"></div--> <!-- Variable Expression -->
+Emp : <!-- div>번호: <span th:text="${emp.empno}"></span></div>
+	  <div>이름: <span th:text="${emp.ename}"></span></div>
+	  <div>부서: <span th:text="${emp.deptno}"></span></div>
+	  <div>입사: <span th:text="${emp.hiredate}"></span></div>
+	  <div>월급: <span th:text="${emp.sal}"></span></div-->
+
+<!-- each는 반복문을 뜻함 -->  
+<!-- div>
+	<table>
+		<tr th:each="emp : ${list}">  
+			<td th:text="${emp.empno}"></td>
+			<td th:text="${emp.ename}"></td>
+			<td th:text="${emp.deptno}"></td>
+			<td th:text="${emp.hiredate}"></td>
+			<td th:text="${emp.sal}"></td>
+		</tr>
+	</table>
+</div-->
+
+<span style="color:red"><div th:if="${user1}=='Smith'">Hello Smith</div></span>
+<span style="color:blue"><div th:unless="${user2}=='Smith'">Hello there</div></span>
+
+<div><a th:href="@{'/thymeleaf/menu'}">클릭</a></div>  <!--@이를 사용함 URL Expression 사용하기 -->
+
+<form method="post" action="/path/list">
+</form>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ezen.demo.plsqlMapper.EmpPLSQLMapper">
+	
+	<resultMap id="empMap" type="hashmap"/>
+	
+	<resultMap id="empVO" type="com.ezen.demo.model.Emp">
+		<result property="empno" column="empno"/>
+	</resultMap>
+	
+	<resultMap id="empList" type="hashmap"/>
+		
+	<select id="getEnameByEmpno" statementType="CALLABLE" parameterType="map">
+		{
+			CALL ename_by_empno(
+				#{empno},
+				#{ename, mode=OUT, jdbcType=VARCHAR, javaType= String, resultMap=empMap}
+			)
+		}
+	</select>
+	
+	<select id="getEmpListByDeptno" statementType="CALLABLE" parameterType="map">
+		{
+			CALL emp_by_deptno(
+				#{deptno},
+				#{resultList, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=empMap}
+			)
+		}
+	</select>
+	
+</mapper>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form method="post" action="@{/thymeleaf/save}">
+	<div><label>번호 <input type="number" name="empno"></label></div>
+	<div><label>이름 <input type="text" name="ename"></label></div>
+	<div><label>부서번호<input type="number" name="deptno"></label></div>
+	<div><label>입사일<input type="Date" name="hiredate"></label></div>
+	<div><label>급여<input type="number" name="sal"></label></div>
+	<div>
+		<button type="reset">취소</button>
+		<button type="submit">저장</button>
+	</div>
+</form>
+</body>
+</html>
