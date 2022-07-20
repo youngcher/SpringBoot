@@ -87,7 +87,14 @@ public class ThymeleafTestController {
 	}
 	
 	@GetMapping("/save")
-	public String save() {
+	public String save(Emp emp, Model model) {
+		//sal가 5000보다 낮아야 한다
+		if(emp.getSal()>=5000) {
+			model.addAttribute("emp", emp);
+			model.addAttribute("sal_err", "5000미만");
+			return "thymeleaf/input_form";
+		}
+		//log.trace("form")
 		
 		return null;
 	}

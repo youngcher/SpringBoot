@@ -3,14 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	.err{ color:red; }
+</style>
 </head>
+<!-- script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+30JU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script-->
 <body>
 <form method="post" action="@{/thymeleaf/save}">
-	<div><label>번호 <input type="number" name="empno"></label></div>
-	<div><label>이름 <input type="text" name="ename"></label></div>
-	<div><label>부서번호<input type="number" name="deptno"></label></div>
-	<div><label>입사일<input type="Date" name="hiredate"></label></div>
-	<div><label>급여<input type="number" name="sal"></label></div>
+	<div><label>번호 <input type="number" name="empno" th:value="${emp.empno}"></label></div>
+	<div><label>이름 <input type="text" name="ename" th:value="${emp.ename}"></label></div>
+	<div><label>부서번호<input type="number" name="deptno" th:value="${emp.deptno}"></label></div>
+	<div><label>입사일<input type="Date" name="hiredate" th:value="${emp.hiredate}"></label></div>
+	<div><label>급여<input type="number" name="sal" th:value="${emp.sal}"></label>
+		<span class="err" th:text="${sal_err}"></span>
+	</div>
+	
 	<div>
 		<button type="reset">취소</button>
 		<button type="submit">저장</button>
