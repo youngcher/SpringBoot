@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>인원 상세정보</title>
+<style type="text/css">
+	#container { width:fit-content; padding:1em; margin:0 auto; }
+	nav { margin-top:1em; }
+	a { text-decoration:none; }
+</style>
 </head>
 <body>
-
+<div id="container" th:object="${person}">
+	<div th:text="'번호 ' + *{num}"></div>
+	<div th:text="'이름 ' + *{name}"></div>
+	<div th:text="'메일 ' + *{email}"></div>
+	<nav>
+		[<a th:href="@{'/val/test/edit/' + *{num}}">수정</a>]
+		[<a th:href="@{'/val/test/delete/' + *{num}}">삭제</a>]
+	</nav>
+</div>
 </body>
 </html>

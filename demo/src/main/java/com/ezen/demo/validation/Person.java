@@ -1,4 +1,4 @@
-package com.ezen.demo.val;
+package com.ezen.demo.validation;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,22 +20,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name="person")
-public class Person {
+public class Person 
+{
+  @Id
+  @GeneratedValue(strategy=GenerationType.AUTO) // JPA에서 자동증가 지원
+  private Long num;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO) //JPA에서 자동증가 지원
-	private Long num;
-	
-	@NotEmpty(message = "이름은 필수 입력항목입니다.")
-	@Size(min=2, message="이름은 2자 이상입니다.") //[min=x, max=y]
-	private String name;
-	
-	@NotEmpty
-	@Email
-	private String email;
-	
-	@NotNull
-	@Min(value = 20)
-	private Integer age;
-	
+  @NotEmpty(message="이름은 필수 입력항목입니다")
+  @Size(min=2, message="이름은 2자 이상입니다")    // [min=x, max=y]
+  private String name;
+
+  @NotEmpty
+  @Email
+  private String email;
+
+  @NotNull
+  @Min(value=20)
+  private Integer age;
 }

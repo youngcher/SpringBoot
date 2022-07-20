@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원 입력 폼</title>
+<style type="text/css">
+	main {width:fit-content; margin:0 auto; }
+	main nav {width:fit-content; margin:1em auto; }
+	.err { color:red; }
+	label { display:inline-block; width:5em; text-align:right; margin-right:1em; }
+</style>
 </head>
 <body>
-
+<main>
+<form th:action="@{/val/test/add}" th:object="${person}" method="post">
+    <div>
+        <label for="name">이름</label>
+        <input type="text" th:field="*{name}" id="name" placeholder="이름">
+        <div class="err" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    </div>
+    <div>
+        <label for="email">이메일</label>
+        <input type="text" th:field="*{email}" id="email" placeholder="이메일">
+        <div class="err" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+    </div>
+    <div>
+        <label for="age">나이</label>
+        <input type="text" th:field="*{age}" id="age" placeholder="나이">
+        <div class="err" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+    </div>
+    <nav>
+	    <button type="reset">취소</button>
+	    <button type="submit">저장</button>
+    </nav>
+</form>
+</main>
 </body>
 </html>
