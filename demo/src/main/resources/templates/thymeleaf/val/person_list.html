@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>구성인원 목록</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 <style type="text/css">
 	#container { width:fit-content; padding:1em; margin:0 auto; }
 	div>span { display:inline-block; width:150px;}
@@ -22,5 +24,20 @@
 		<span th:text="${p.email}"></span>
 	</div>
 </div>
+
+<table class="table table-hover">
+	<tr><th scope="col">번호</th><th scope="col">이름</th>
+	    <th scope="col">나이</th><th scope="col">이메일</th>
+	</tr>
+	<tr th:each="p : ${list}">
+		<td th:text="${p.num}"></td>
+		<td>
+			<a th:href="@{'/val/test/detail/'+ ${p.num}}" th:text="${p.name}"></a>
+		</td>
+		<td th:text="${p.age}"></td>
+		<td th:text="${p.email}"></td>
+	</tr>
+
+</table>
 </body>
 </html>

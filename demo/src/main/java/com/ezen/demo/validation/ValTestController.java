@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,6 +29,9 @@ public class ValTestController
 {
 	@Autowired
 	private PersonRepository repository;
+	
+	@Autowired
+	private PersonService svc;
 	
 	@GetMapping("")
 	@ResponseBody
@@ -43,7 +48,7 @@ public class ValTestController
 	}
 	
 	@PostMapping("/add")
-	public String addPerson(@Valid Person person, BindingResult result) 
+	public String addPerson(@Valid Person person, BindingResult result, Model model) 
 	{
 		if(result.hasErrors()) //검증오류가 있는 경우
 		{
@@ -70,7 +75,13 @@ public class ValTestController
 			
 			return "thymeleaf/val/input_form"; // 다시 폼으로 
 		}
-		repository.save(person);             // 정상 실행
+//		repository.save(person);             // 정상 실행
+		try {
+			svc.addPerson(person); //정상 실행
+		} catch(HttpClientErrorException e) {
+			model.addAttribute("msg", "로그인 후에 사용할 수 있습니다.");
+			return "thymeleaf/val/login";
+		}
 		return "redirect:/val/test/list";
 	}
 	

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>로그인 폼</title>
+<script type="text/javascript">
+	var msg = '[[${msg}]]';
+	if(msg) alert(msg);
+</script>
+</head>
+<body>
+<main>
+<h3>로그인</h3>
+<form action="/val/test/login" method="post">
+	<div><input type="text" name="uid" value="smith" placeholder="아이디"></div>
+	<div><input type="password" name="pwd" value="smith" placeholder="암호"></div>
+	<div>
+		<button type="reset">취소</button>
+		<button type="submit">로그인</button>
+	</div>
+</form>
+</main>
+</body>
+</html>

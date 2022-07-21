@@ -21,7 +21,8 @@ public class JpaEmpController {
 	public String getList(Model model) {
 		List<Employee> list = empRepository.findAll();
 		model.addAttribute("list", list);
-		return "empList";
+		//return "empList";
+		return "thymeleaf/val/empList";
 	}
 	
 	@GetMapping("test1")

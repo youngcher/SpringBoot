@@ -27,7 +27,7 @@ public class Person
   private Long num;
 
   @NotEmpty(message="이름은 필수 입력항목입니다")
-  @Size(min=2, message="이름은 2자 이상입니다")    // [min=x, max=y]
+  @Size(min=2, message="{Person.Name.Size}") //ValidationMessages.properties   // [min=x, max=y]
   private String name;
 
   @NotEmpty
