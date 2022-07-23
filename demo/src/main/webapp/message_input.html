@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>메세지 작성</title>
+</head>
+<body>
+<main>
+<form th:action="@{/massage/msglist}" th:object="${message}" method="post">
+    <div>
+        <label for="receiver">수신자</label>
+        <input type="text" th:field="*{receiver}" id="receiver" placeholder="수신자">
+        <div class="err" th:if="${#fields.hasErrors('receiver')}" th:errors="*{receiver}"></div>
+    </div>
+    <div>
+        <label for="sender">송신자</label>
+        <input type="text" th:field="*{sender}" id="sender" placeholder="송신자">
+        <div class="err" th:if="${#fields.hasErrors('sender')}" th:errors="*{sender}"></div>
+    </div>
+    <div>
+        <label for="date">나이</label>
+        <input type="date" th:field="*{date}" id="date" placeholder="날짜">
+        <div class="err" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></div>
+    </div>
+    <div>
+        <label for="contents">메시지</label>
+        <input type="text" th:field="*{contents}" id="contents" placeholder="메시지">
+        <div class="err" th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}"></div>
+    </div>
+    <nav>
+	    <button type="reset">취소</button>
+	    <button type="submit">저장</button>
+    </nav>
+</form>
+</main>
+</body>
+</html>
