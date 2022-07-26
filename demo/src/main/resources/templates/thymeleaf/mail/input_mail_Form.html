@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<body>
+<form method="post" action="/mail/sendMSG" enctype="multipart/form-data">
+	<div><label>제목 <input type="text" name="title"></label></div>
+	<div><label>내용 <input type="text" name="contents"></label></div>
+	<div><label>첨부파일 <input type="file" name="files" multiple="multiple"></label></div>
+	<div>
+		<button type="reset">취소</button>
+		<button type="submit">저장</button>
+	</div>
+</form>
+</body>
+</body>
+</html>

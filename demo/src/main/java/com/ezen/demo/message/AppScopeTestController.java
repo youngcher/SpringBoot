@@ -1,6 +1,5 @@
 package com.ezen.demo.message;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;

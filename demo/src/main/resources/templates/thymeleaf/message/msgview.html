@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>메시지 보기</title>
+<style type="text/css">
+	a { text-decoration:none; }
+	#msgContainer { display:none; width:fit-content; border:1px solid black; padding:1em; margin:1em; }
+	#msgContainer>div { border-bottom:1px dashed black; margin-bottom:0.5em;}
+	div#close_icon { margin:0; padding:0 5px; width:fit-content; 
+					border:1px solid black;	margin-left:95%; margin-right:0%; }
+	#msgSendForm { display:none; }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	function showMessage()
+	{
+		$('#msgContainer').show();
+
+		var receiver = '[[${msg.receiver}]]';
+		$.ajax({
+			url:'/app/ctx/find/rec/'+receiver,
+			method:'post',
+			cache:false,
+			dataType:'json',
+			success:function(res){
+				$('#sender').text('보낸사람: ' + res.sender);
+				$('#receiver').text('받는사람: ' + res.receiver);
+				$('#contents').text('메시지: ' + res.contents);
+			},
+			error:function(xhr,status,err){
+				alert('에러:'+err);
+			}
+		});
+	}
+	
+	function closeMsg()
+	{
+		$('#msgContainer').css('display', 'none')
+		$.ajax({
+			url:'/app/ctx/remove/msg/[[${msg.receiver}]]',
+			method:'get',
+			cache:false,
+			dataType:'json',
+			success:function(res){
+				alert(res.removed ? '삭제 성공':'Failed');
+			},
+			error:function(xhr,status,err){
+				alert('에러:'+err);
+			}
+		});
+	}
+	
+	function showSendForm()
+	{
+		$('#msgSendForm').show();
+	}
+	
+	function sendMsg()
+	{
+		var data = $('#sendForm').serialize();
+		$.ajax({
+			url:'/app/ctx/send',
+			method:'post',
+			cache:false,
+			data:$('#sendForm').serialize(),
+			dataType:'json',
+			success:function(res){
+				alert(res.sent ? '쪽지 보내기 성공':'Failed');
+			},
+			error:function(xhr,status, err){
+				alert('에러:'+err);
+			}
+		});
+		return false;
+	}
+</script>
+</head>
+<body>
+<h3>쪽지 보기</h3>
+
+<div th:if="${msg}">
+	읽지 않은 쪽지가 있습니다 
+	[<a href="javascript:showMessage();">쪽지보기</a>]
+	[<a href="javascript:showSendForm();">쪽지 보내기 폼</a>]
+</div>
+
+<div th:unless="${msg}" th:text="'전달된 쪽지가 없습니다'"></div>
+<div id="msgContainer">
+	<div id="close_icon" style="text-align:right;">
+		<a href="javascript:closeMsg();"> x </a>
+	</div>
+	<div id="sender"></div>
+	<div id="receiver"></div>
+	<div id="contents"></div>
+</div>
+<hr>
+
+<div id="msgSendForm">
+	<form id="sendForm" onsubmit="return sendMsg();">
+		<div><label>수신자 <input type="text" name="receiver" ></label></div>
+		<div><label>메시지 <input type="text" name="contents" ></label></div>
+		<div>
+			<button type="reset">취소</button>
+			<button type="submit">전송</button>
+		</div>
+	</form>
+</div>
+</body>
+</html>
