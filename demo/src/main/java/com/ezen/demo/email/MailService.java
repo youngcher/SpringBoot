@@ -15,11 +15,14 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import com.ezen.demo.model.User;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -64,7 +67,7 @@ public class MailService {
 
 	      try {
 	         InternetAddress[] addressTo = new InternetAddress[1];
-	         addressTo[0] = new InternetAddress("youngcher1@naver.com");
+	         addressTo[0] = new InternetAddress("****@naver.com");
 
 	         mimeMessage.setRecipients(Message.RecipientType.TO, addressTo);
 
@@ -92,7 +95,7 @@ public class MailService {
 
 	      try {
 	         InternetAddress[] addressTo = new InternetAddress[1];
-	         addressTo[0] = new InternetAddress("youngcher1@naver.com");
+	         addressTo[0] = new InternetAddress("****@naver.com");
 
 	         mimeMessage.setRecipients(Message.RecipientType.TO, addressTo);
 	         
@@ -139,8 +142,9 @@ public class MailService {
 
 	      try {
 	         InternetAddress[] addressTo = new InternetAddress[1];
-	         addressTo[0] = new InternetAddress("youngcher1@naver.com");
-
+//	         addressTo[0] = new InternetAddress("*****@naver.com");
+	         addressTo[0] = new InternetAddress("****@gmail.com");
+	         
 	         mimeMessage.setRecipients(Message.RecipientType.TO, addressTo);
 	         
 	         // message 제목
@@ -181,7 +185,15 @@ public class MailService {
 		
 	}
 
-	   
+	public void logincheck(HttpSession session) {
+		
+	}
+
+	public User getUser(String uid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	   
 	   
 	   

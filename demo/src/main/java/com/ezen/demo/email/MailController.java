@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.ezen.demo.model.User;
 
 @Controller
 @RequestMapping("/mail")
@@ -85,5 +88,38 @@ public class MailController {
 		return true;
 	}
 	
+	@GetMapping("/dbmail/{uid}/{upw}")
+	@ResponseBody
+	public String dbmail(HttpSession session, @PathVariable("uid")String uid, @PathVariable("upw")String upw) {
+			
+			//로그인 user객체
+			User user = new User();
+			user.setUid(uid);
+			user.setUpw(upw);
+		
+			//DB유저 객체 (연동안함)
+			User user2 =svc.getUser(uid);
+			
+			//user equals Override 작업 해야함
+			if(user.equals(user2)) {
+				session.setAttribute("uid", uid);
+			} else {
+				return "false";
+			}
+			
+			svc.logincheck(session);
+		return "success";
+	}
 	
+	
+	@GetMapping("/mailRead")
+	@ResponseBody
+	public String mailRead() {
+
+		MailReader reader = new MailReader();
+		
+		reader.readEmail();
+		
+		return "true";
+	}
 }
