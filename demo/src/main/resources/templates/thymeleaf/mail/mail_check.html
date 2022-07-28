@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+var checkcode = null;
+
+function sendMsg()
+{
+	var data = $('#sendForm').serialize();
+	$.ajax({
+		url:'/mail/checkmail',
+		method:'post',
+		cache:false,
+		data:$('#sendForm').serialize(),
+		dataType:'json',
+		success:function(res){
+			alert(res.result ? '메일 전송 완료':'메일 전송 실패');
+			checkcode = res.code;
+		},
+		error:function(xhr,status, err){
+			alert('에러:'+err);
+		}
+	});
+	return false;
+}
+
+function checked()
+{	
+	//alert(checkcode);
+	var data= $('#checked').serialize();
+	$.ajax({
+		url:'/mail/checkcode',
+		method:'post',
+		cache:false,
+		data:$('#checked').serialize(),
+		dataType:'json',
+		success:function(res){
+			if(res.code == checkcode) {
+				alert("인증 성공");
+			} else {
+				alert("인증 실패");
+			}
+		},
+		error:function(xhr,status, err){
+			alert('에러:'+err);
+		}
+	});
+	return false;
+}
+</script>
+</head>
+<body>
+<form id="sendForm" onsubmit="return sendMsg();">
+	<div><label>이메일<input type="text" name="mail"></label></div>
+	<div>
+		<button type="reset">취소</button>
+		<button type="submit">메일 인증하기</button>
+	</div>
+</form>
+<form id="checked" onsubmit="return checked();">
+	<div><label>확인코드<input type="text" name="code"></label></div>
+	<div>
+		<button type="reset">취소</button>
+		<button type="submit">인증코드 확인</button>
+	</div>
+</form>
+
+</body>
+</html>

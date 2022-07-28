@@ -194,6 +194,29 @@ public class MailService {
 		return null;
 	}
 
+	public String checkmail(String email) {
+		String random = getRandomText();
+		
+		MimeMessage mimeMessage = sender.createMimeMessage();
+
+	      try {
+	         InternetAddress[] addressTo = new InternetAddress[1];
+	         addressTo[0] = new InternetAddress("youngcher1@naver.com");
+
+	         mimeMessage.setRecipients(Message.RecipientType.TO, addressTo);
+
+	         mimeMessage.setSubject("마임 메시지 테스트");
+	         mimeMessage.setContent(random,"text/html;charset=utf-8");
+	         
+	         sender.send(mimeMessage);
+	         return random;
+	      } catch (MessagingException e) {
+	         log.error("에러={}", e);
+	      }
+		
+		return null;
+	}
+
 	   
 	   
 	   

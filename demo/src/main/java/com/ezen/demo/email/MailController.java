@@ -3,7 +3,9 @@ package com.ezen.demo.email;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -111,7 +114,6 @@ public class MailController {
 		return "success";
 	}
 	
-	
 	@GetMapping("/mailRead")
 	@ResponseBody
 	public String mailRead() {
@@ -122,4 +124,40 @@ public class MailController {
 		
 		return "true";
 	}
+	
+	
+	@GetMapping("/testcheck")
+	public String testcheck() {
+		
+		return "thymeleaf/mail/mail_check";
+	}
+	
+	@PostMapping("/checkmail")
+	@ResponseBody
+	public Map<String, Object> checkmail(@RequestParam("mail")String email) {
+		Map<String, Object> map = new HashMap<>();
+		
+		String random = svc.checkmail(email);
+		
+		if(random!=null) { 
+			map.put("result", true);
+		} else {
+			map.put("result", false);
+		}
+		
+		map.put("code", random);
+		
+		
+		return map;
+	}
+	
+	@PostMapping("/checkcode")
+	@ResponseBody
+	public Map<String, Object> checkcode(@RequestParam("code")String code) {
+		Map<String, Object> map = new HashMap<>();
+		System.out.println(code);
+		map.put("code", code);
+		return map;
+	}
+	
 }
