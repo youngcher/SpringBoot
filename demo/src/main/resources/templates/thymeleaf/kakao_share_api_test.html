@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>카카오 공유 API 테스트</title>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script type="text/javascript">
+
+
+	Kakao.init('${code}');
+	console.log(Kakao.isInitialized()); //true | false
+	
+function loging(){
+	Kakao.Auth.login({
+	  success: function(response) {
+		  alert('로그인 성공');
+		  console.log(response);
+	  },
+	  fail: function(error) {
+		  alert('로그인 실패');
+		  console.log(error);
+	  },
+	});
+}
+	
+function kakao_login()
+{
+   $.ajax({
+      url:'/kakao/share/login',
+      method:'get',
+      cache:false,
+      dataType:'script',
+      success:function(res){
+         kakao_share_login();
+      },
+      error:function(xhr,status,err){
+         alert('에러:' + err);
+      }
+   });
+}
+	
+	
+function kakao_share_send() {
+	Kakao.Share.createDefaultButton({
+	  container: '#kakao_share_container',
+	  objectType: 'text',
+	  text:
+	    '칙쇼!',
+	  link: {
+	    mobileWebUrl:
+	      'https://developers.kakao.com',
+	    webUrl:
+	      'https://developers.kakao.com',
+	  },
+	});
+}
+
+function send2() {
+	Kakao.Share.createDefaultButton({
+		  container: '#send2',
+		  objectType: 'location',
+		  address: '경기 성남시 분당구 판교역로 235 에이치스퀘어 N동 8층',
+		  addressTitle: '카카오 판교오피스 카페톡',
+		  content: {
+		    title: '신메뉴 출시♥︎ 체리블라썸라떼',
+		    description: '이번 주는 체리블라썸라떼 1+1',
+		    imageUrl:
+		      'http://k.kakaocdn.net/dn/bSbH9w/btqgegaEDfW/vD9KKV0hEintg6bZT4v4WK/kakaolink40_original.png',
+		    link: {
+		      mobileWebUrl: 'https://developers.kakao.com',
+		      webUrl: 'https://developers.kakao.com',
+		    },
+		  },
+		  social: {
+		    likeCount: 286,
+		    commentCount: 45,
+		    sharedCount: 845,
+		  },
+		  buttons: [
+		    {
+		      title: '웹으로 보기',
+		      link: {
+		        mobileWebUrl: 'https://developers.kakao.com',
+		        webUrl: 'https://developers.kakao.com',
+		      },
+		    },
+		  ],
+		});
+	
+}
+
+function send3() {
+	var msg = document.getElementById('msginput').value;
+	alert(msg);
+	Kakao.Share.createDefaultButton({
+		  container: '#send_msg',
+		  objectType: 'text',
+		  text:
+			  msg,
+		  link: {
+		    mobileWebUrl:
+		      'https://developers.kakao.com',
+		    webUrl:
+		      'https://developers.kakao.com',
+		  },
+		});
+}
+
+function kakao_share_send_text() 
+{
+   Kakao.Share.createDefaultButton({
+        container: '#kakao_share_container',
+        objectType: 'text',
+        text: $('#kakao_msg').val(),
+        link: {
+          mobileWebUrl:
+            'https://developers.kakao.com',
+          webUrl:
+            'https://developers.kakao.com',
+        },
+   });
+}
+
+</script>
+</head>
+<body>
+<h3>카카오 공유 API를 이용한 메시지 보내기</h3>
+<div>
+<button type="button" onclick="loging();">로그인</button>
+</div>
+
+<div id="send_msg">
+<form>
+	<div>
+		<input id="msginput" type="text">
+	</div>
+	<div>
+	    <button type="reset">취소</button>
+	    <button type="button" onclick="send3();">메시지 전송</button>
+    </div>
+</form>
+</div>
+
+<textarea id="kakao_msg" rows="5" cols="30" placeholder="카톡 메시지 입력..."></textarea>
+
+<div id="kakao_share_container">
+<button type="button" onclick="kakao_share_send();">메세지보내기</button>
+</div>
+
+<div id="send2">
+<button type="button" onclick="send2();">메세지보내기</button>
+</div>
+
+</body>
+</html>
