@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Kakao REST API Test</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script type="text/javascript">
+	function kakao_rest_api_login() {
+		// https://devtalk.kakao.com/t/v2-api-talk-memo-default-send/44442/3 질문 참조
+		location.href="https://kauth.kakao.com/oauth/authorize" +
+			"?client_id=969483476fdf735706eb7ca55064e129" +
+			"&redirect_uri=http://localhost/msg/rest/login/oauth" +
+			"&response_type=code" + 
+			"&scope=talk_message";
+	}
+</script>
+</head>
+<body>
+<p>
+<button type="button" onclick="kakao_rest_api_login();">REST API Login</button>
+</body>
+</html>
