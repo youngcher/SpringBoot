@@ -28,7 +28,7 @@ public class MailReader
 {
    String pop3Host = "pop.gmail.com";
    String userName = "*******@gmail.com";
-   String password = "yrpfhwrlqqqzyyob";
+   String password = "******";
 
    public void readEmail()
    {

@@ -9,7 +9,7 @@
 	function kakao_rest_api_login() {
 		// https://devtalk.kakao.com/t/v2-api-talk-memo-default-send/44442/3 질문 참조
 		location.href="https://kauth.kakao.com/oauth/authorize" +
-			"?client_id=969483476fdf735706eb7ca55064e129" +
+			"?client_id=" +
 			"&redirect_uri=http://localhost/msg/rest/login/oauth" +
 			"&response_type=code" + 
 			"&scope=talk_message";

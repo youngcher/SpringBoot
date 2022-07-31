@@ -84,7 +84,7 @@ public class KakaoRESTTestController
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=969483476fdf735706eb7ca55064e129");
+            sb.append("&client_id=");
             sb.append("&redirect_uri=http://localhost/msg/rest/login/oauth");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());

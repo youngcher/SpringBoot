@@ -201,7 +201,7 @@ public class MailService {
 
 	      try {
 	         InternetAddress[] addressTo = new InternetAddress[1];
-	         addressTo[0] = new InternetAddress("youngcher1@naver.com");
+	         addressTo[0] = new InternetAddress("******@naver.com");
 
 	         mimeMessage.setRecipients(Message.RecipientType.TO, addressTo);
 
