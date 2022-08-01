@@ -83,6 +83,7 @@ public class AppScopeTestController
 	@ResponseBody
 	public String removeMsg(@PathVariable("receiver")String receiver)
 	{	
+		
 		boolean removed = svc.removeMsgByReceiver(receiver);
 		return "{\"removed\":"+removed+"}";
 	}
