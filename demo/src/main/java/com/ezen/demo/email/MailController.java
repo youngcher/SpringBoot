@@ -139,7 +139,7 @@ public class MailController {
 		
 		String random = svc.checkmail(email);
 		
-		if(random!=null) { 
+		if(random!=null) {
 			map.put("result", true);
 		} else {
 			map.put("result", false);
